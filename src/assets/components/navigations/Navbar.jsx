@@ -3,8 +3,10 @@ import Logo from "../../images/Logo.png";
 import User from "../../images/User.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -55,7 +57,15 @@ export default function Navbar() {
             <div>
               <Menu.Button>
                 <span className="sr-only">Open options</span>
-                <span className="hover:text-[#F29C33] transition-colors duration-300">
+                <span
+                  className={`${
+                    location.pathname === "/meal-categories" ||
+                    location.pathname === "/search-meal" ||
+                    location.pathname === "/meal-area"
+                      ? "bg-[#F29C33] px-3 py-1 rounded-full hover:bg-[#EE6352] text-[#f0ebe1] transition-colors duration-300"
+                      : "hover:text-[#F29C33] transition-colors duration-300"
+                  }`}
+                >
                   Search Meals
                 </span>
               </Menu.Button>
@@ -75,7 +85,7 @@ export default function Navbar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href=""
+                        href="/search-meal"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -91,7 +101,7 @@ export default function Navbar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href=""
+                        href="/meal-area"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -107,7 +117,7 @@ export default function Navbar() {
                   <Menu.Item>
                     {({ active }) => (
                       <a
-                        href=""
+                        href="/meal-categories"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -198,66 +208,70 @@ export default function Navbar() {
             </Transition>
           </Menu>
         </div>
-        {/* {isLoggedIn ? ( */}
-        <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <Menu.Button className="flex justify-center h-12 w-12 rounded-full bg-gradient-to-tr from-[#F29C33] to-[#EE6352] hover:bg-gradient-to-bl">
-              <span className="sr-only">Open options</span>
-              <img src={User} alt="" />
-            </Menu.Button>
-          </div>
+        {isLoggedIn ? (
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="flex justify-center h-12 w-12 rounded-full bg-gradient-to-tr from-[#F29C33] to-[#EE6352] hover:bg-gradient-to-bl">
+                <span className="sr-only">Open options</span>
+                <img src={User} alt="" />
+              </Menu.Button>
+            </div>
 
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-white divide-y divide-gray-100 focus:outline-none">
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href=""
-                      className={`${
-                        active ? "bg-[#F0EBE1] text-gray-900" : "text-gray-700"
-                      }
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-white divide-y divide-gray-100 focus:outline-none">
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        href=""
+                        className={`${
+                          active
+                            ? "bg-[#F0EBE1] text-gray-900"
+                            : "text-gray-700"
+                        }
                         px-4 py-2 text-sm flex items-center
                       `}
-                    >
-                      Profile
-                    </a>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      // onClick={() => dispatch(logout(navigate))}
-                      // type="submit"
-                      className={`${
-                        active ? "bg-[#F0EBE1] text-gray-900" : "text-gray-700"
-                      } px-4 py-2 text-sm flex items-center w-full`}
-                    >
-                      Logout
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-        {/* ) : ( */}
-        {/* <Link to="/login">
-          <button className="flex items-center bg-gradient-to-tr from-[#B55D51]/75 to-transparent hover:bg-gradient-to-bl px-3 py-2 rounded-2xl">
-            Login
-          </button>
-        </Link> */}
-        {/* )} */}
+                      >
+                        Profile
+                      </a>
+                    )}
+                  </Menu.Item>
+                </div>
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        // onClick={() => dispatch(logout(navigate))}
+                        // type="submit"
+                        className={`${
+                          active
+                            ? "bg-[#F0EBE1] text-gray-900"
+                            : "text-gray-700"
+                        } px-4 py-2 text-sm flex items-center w-full`}
+                      >
+                        Logout
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        ) : (
+          <Link to="/login">
+            <button className="flex items-center bg-gradient-to-tr from-[#F29C33] to-[#EE6352] hover:bg-gradient-to-bl text-white px-3 py-2 rounded-2xl">
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

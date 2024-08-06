@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  meals: [],
   mealDetail: null,
   randomMeal: [],
   category: [],
-  categoryList: [],
-  categoryName: null,
+  categoryResult: [],
+  selectedCategory: null,
+  area: [],
+  areaResult: [],
+  selectedArea: null,
   searchKeyword: "",
   searchResults: [],
   isLoading: true,
@@ -16,9 +18,6 @@ const mealSlice = createSlice({
   name: "recipe",
   initialState,
   reducers: {
-    setMeals: (state, action) => {
-      state.meals = action.payload;
-    },
     setMealDetail: (state, action) => {
       state.mealDetail = action.payload;
     },
@@ -28,11 +27,20 @@ const mealSlice = createSlice({
     setCategory: (state, action) => {
       state.category = action.payload;
     },
-    setCategoryList: (state, action) => {
-      state.categoryList = action.payload;
+    setCategoryResult: (state, action) => {
+      state.categoryResult = action.payload;
     },
-    setCategoryName: (state, action) => {
-      state.categoryName = action.payload;
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
+    setArea: (state, action) => {
+      state.area = action.payload;
+    },
+    setAreaResult: (state, action) => {
+      state.areaResult = action.payload;
+    },
+    setSelectedArea: (state, action) => {
+      state.selectedArea = action.payload;
     },
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload;
@@ -47,12 +55,14 @@ const mealSlice = createSlice({
 });
 
 export const {
-  setMeals,
   setMealDetail,
   setRandomMeal,
   setCategory,
-  setCategoryList,
-  setCategoryName,
+  setCategoryResult,
+  setSelectedCategory,
+  setArea,
+  setAreaResult,
+  setSelectedArea,
   setSearchKeyword,
   setSearchResults,
   setIsLoading,

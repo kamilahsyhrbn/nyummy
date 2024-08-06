@@ -4,10 +4,12 @@ import { thunk } from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import mealReducers from "../reducers/mealReducers";
 import cocktailReducers from "../reducers/cocktailReducers";
+import authReducers from "../reducers/authReducers";
 
 const rootReducer = combineReducers({
   meal: mealReducers,
   cocktail: cocktailReducers,
+  auth: authReducers,
 });
 
 const persistConfig = {

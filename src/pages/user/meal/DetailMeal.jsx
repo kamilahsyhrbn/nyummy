@@ -10,7 +10,6 @@ export default function DetailMeal() {
   const navigate = useNavigate();
   const meal = useSelector((state) => state.meal.mealDetail);
   const { isLoading } = useSelector((state) => state.meal);
-  console.log("meal", meal);
 
   const tags =
     meal && meal[0]?.strTags
@@ -134,9 +133,9 @@ export default function DetailMeal() {
                     -11
                   )}`}
                   title="YouTube video player"
-                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  loading="lazy"
                 ></iframe>
               ) : (
                 <p className="text-center">No video available </p>

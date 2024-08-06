@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import BtnScrollTop from "../../assets/components/BtnScrollTop";
 import Navbar from "../../assets/components/navigations/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories, getRandomMeal } from "../../redux/actions/mealActions";
+import {
+  getCategories,
+  getMealsByCategory,
+  getRandomMeal,
+} from "../../redux/actions/mealActions";
 import { getRandomDrinks } from "../../redux/actions/cocktailActions";
 
 import background from "../../assets/images/background.png";
@@ -13,11 +17,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "../../assets/components/navigations/Footer";
+import { useNavigate } from "react-router-dom";
+import { setSelectedCategory } from "../../redux/reducers/mealReducers";
 
 export default function Home() {
   const { randomMeal, category } = useSelector((state) => state.meal);
   const { randomCocktail } = useSelector((state) => state.cocktail);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getRandomMeal());
@@ -149,7 +156,10 @@ export default function Home() {
             popular meal Categories
           </h1>
           <div className="mt-2 flex justify-end md:mt-0">
-            <button className="py-2 px-5 text-sm md:text-md rounded-full bg-[#9FDC26] border border-black hover:bg-transparent font-medium transition-colors duration-300 uppercase">
+            <button
+              onClick={() => navigate("/meal-categories")}
+              className="py-2 px-5 text-sm md:text-md rounded-full bg-[#9FDC26] border border-black hover:bg-transparent font-medium transition-colors duration-300 uppercase"
+            >
               View All Categories
             </button>
           </div>
@@ -158,7 +168,15 @@ export default function Home() {
         <Slider {...settings2}>
           {category?.slice(0, 5).map((category) => {
             return (
-              <div key={category?.idCategory} className="my-5">
+              <div
+                key={category?.idCategory}
+                className="my-5"
+                onClick={() => {
+                  navigate(`/meal-categories`),
+                    dispatch(setSelectedCategory(category?.strCategory));
+                  dispatch(getMealsByCategory(category?.strCategory));
+                }}
+              >
                 <div className="flex flex-col items-center text-center cursor-pointer hover:text-[#F29C33] transition-all duration-300 hover:scale-105">
                   <img src={category?.strCategoryThumb} className="w-48" />
 

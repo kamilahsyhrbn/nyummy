@@ -12,7 +12,11 @@ export default function CardMeals({ isLoading, meal }) {
     navigate(`/recipe-details/${id}`);
   };
   return (
-    <div className="relative bg-[#FFFBF2] rounded-3xl p-3 flex flex-col justify-center md:mx-5">
+    <div
+      className={`relative bg-[#FFFBF2] rounded-3xl p-3 flex flex-col justify-center ${
+        location.pathname === "/" ? "md:mx-5" : "md:mx-0"
+      }`}
+    >
       <button
         // onClick={() => handleClickHeart(e)}
         className="absolute top-5 right-6 bg-white p-1.5 rounded-full z-10"
@@ -37,12 +41,16 @@ export default function CardMeals({ isLoading, meal }) {
       </div>
 
       <div className="px-3 mt-2">
-        <span className="bg-[#F0EBE1] px-3 py-1 rounded-full mr-2">
-          📍 {meal?.strArea}
-        </span>
-        <span className="bg-[#F0EBE1] px-3 py-1 rounded-full mr-2">
-          🍴 {meal?.strCategory}
-        </span>
+        {meal?.strArea && (
+          <span className="bg-[#F0EBE1] px-3 py-1 rounded-full mr-2">
+            📍 {meal?.strArea}
+          </span>
+        )}
+        {meal?.strCategory && (
+          <span className="bg-[#F0EBE1] px-3 py-1 rounded-full mr-2">
+            🍴 {meal?.strCategory}
+          </span>
+        )}
       </div>
 
       <div className="px-3 mt-4 flex justify-end">
