@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cocktails: [],
-  cocktailDetaol: null,
+  cocktailDetail: null,
   randomCocktail: [],
   category: [],
   categoryList: [],
-  categoryName: null,
+  glasses: [],
+  glassResult: [],
+  selectedGlass: null,
+  selectedCategory: null,
+  alcoholic: [],
+  alcoholicResult: [],
+  selectedAlcoholic: null,
   searchKeyword: "",
   searchResults: [],
   isLoading: true,
@@ -16,11 +21,8 @@ const cocktailSlice = createSlice({
   name: "cocktail",
   initialState,
   reducers: {
-    setCocktail: (state, action) => {
-      state.cocktails = action.payload;
-    },
     setCocktailDetail: (state, action) => {
-      state.cocktailDetaol = action.payload;
+      state.cocktailDetail = action.payload;
     },
     setRandomCocktail: (state, action) => {
       state.randomCocktail = action.payload;
@@ -31,14 +33,32 @@ const cocktailSlice = createSlice({
     setCategoryList: (state, action) => {
       state.categoryList = action.payload;
     },
-    setCategoryName: (state, action) => {
-      state.categoryName = action.payload;
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
+    setSelectedGlass: (state, action) => {
+      state.selectedGlass = action.payload;
+    },
+    setGlasses: (state, action) => {
+      state.glasses = action.payload;
+    },
+    setGlassResult: (state, action) => {
+      state.glassResult = action.payload;
     },
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload;
     },
     setSearchResults: (state, action) => {
       state.searchResults = action.payload;
+    },
+    setAlcoholic: (state, action) => {
+      state.alcoholic = action.payload;
+    },
+    setAlcoholicResult: (state, action) => {
+      state.alcoholicResult = action.payload;
+    },
+    setSelectedAlcoholic: (state, action) => {
+      state.selectedAlcoholic = action.payload;
     },
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -47,14 +67,19 @@ const cocktailSlice = createSlice({
 });
 
 export const {
-  setCocktail,
   setCocktailDetail,
   setRandomCocktail,
   setCategory,
   setCategoryList,
-  setCategoryName,
+  setSelectedCategory,
+  setSelectedGlass,
+  setGlasses,
+  setGlassResult,
   setSearchKeyword,
   setSearchResults,
+  setAlcoholic,
+  setAlcoholicResult,
+  setSelectedAlcoholic,
   setIsLoading,
 } = cocktailSlice.actions;
 

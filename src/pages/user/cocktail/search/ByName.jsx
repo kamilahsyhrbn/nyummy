@@ -3,9 +3,9 @@ import BtnScrollTop from "../../../../assets/components/BtnScrollTop";
 import Navbar from "../../../../assets/components/navigations/Navbar";
 import Footer from "../../../../assets/components/navigations/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { searchMeal } from "../../../../redux/actions/mealActions";
-import { setSearchKeyword } from "../../../../redux/reducers/mealReducers";
-import CardMeals from "../../../../assets/components/cards/CardMeals";
+import CardDrinks from "../../../../assets/components/cards/cardDrinks";
+import { searchDrink } from "../../../../redux/actions/cocktailActions";
+import { setSearchKeyword } from "../../../../redux/reducers/cocktailReducers";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -13,20 +13,22 @@ export default function ByName() {
   const dispatch = useDispatch();
 
   const { searchResults, searchKeyword, isLoading } = useSelector(
-    (state) => state.meal
+    (state) => state.cocktail
   );
+  console.log("searchResults", searchResults);
 
   const handleSearch = (e) => {
     e.preventDefault();
     const searchKeyword = e.target.value;
-    dispatch(searchMeal(searchKeyword));
+    dispatch(searchDrink(searchKeyword));
     dispatch(setSearchKeyword(searchKeyword));
   };
 
   useEffect(() => {
-    dispatch(searchMeal(""));
+    dispatch(searchDrink(""));
     dispatch(setSearchKeyword(""));
   }, []);
+
   return (
     <div>
       <Navbar />
@@ -36,8 +38,9 @@ export default function ByName() {
           <span className="text-center uppercase text-sm font-semibold bg-[#EE6352] text-white px-2 py-1 rounded-full ">
             search
           </span>
-          <h1 className="text-3xl font-bold uppercase">Meal Name</h1>
+          <h1 className="text-3xl font-bold uppercase">Cocktail Name</h1>
         </div>
+
         <div className="mt-5">
           {/* search bar */}
           <div className="w-full flex flex-col items-center gap-3">
@@ -72,7 +75,7 @@ export default function ByName() {
               <button
                 type="reset"
                 onClick={() => {
-                  dispatch(searchMeal("")), dispatch(setSearchKeyword(""));
+                  dispatch(searchDrink("")), dispatch(setSearchKeyword(""));
                 }}
                 className="absolute right-3 -translate-y-1/2 top-1/2 p-1"
               >
@@ -163,8 +166,8 @@ export default function ByName() {
               ) : (
                 <>
                   {searchResults ? (
-                    searchResults?.map((meal) => (
-                      <CardMeals key={meal.idMeal} meal={meal} />
+                    searchResults?.map((drink) => (
+                      <CardDrinks key={drink.idDrink} drinks={drink} />
                     ))
                   ) : (
                     <p className="text-center">No results found</p>

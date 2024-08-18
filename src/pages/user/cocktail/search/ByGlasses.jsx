@@ -1,41 +1,38 @@
 import React, { useEffect } from "react";
 import BtnScrollTop from "../../../../assets/components/BtnScrollTop";
 import Navbar from "../../../../assets/components/navigations/Navbar";
-import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../../../assets/components/navigations/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import CardDrinks from "../../../../assets/components/cards/cardDrinks";
 import {
-  getCategories,
-  getMealsByCategory,
-} from "../../../../redux/actions/mealActions";
-import { setSelectedCategory } from "../../../../redux/reducers/mealReducers";
-import CardMeals from "../../../../assets/components/cards/CardMeals";
+  getDrinkByGlass,
+  getGlassType,
+} from "../../../../redux/actions/cocktailActions";
+import { setSelectedGlass } from "../../../../redux/reducers/cocktailReducers";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export default function ByCategories() {
+export default function ByGlasses() {
   const dispatch = useDispatch();
-
-  const { category, categoryResult, selectedCategory, isLoading } = useSelector(
-    (state) => state.meal
+  const { glasses, selectedGlass, glassResult, isLoading } = useSelector(
+    (state) => state.cocktail
   );
 
-  const results = (selectedCategory) => {
-    if (selectedCategory === "") {
-      dispatch(getMealsByCategory("Beef"));
+  const results = (selectedGlass) => {
+    if (selectedGlass === "") {
+      dispatch(getDrinkByGlass("Highball glass"));
     } else {
-      dispatch(getMealsByCategory(selectedCategory));
+      dispatch(getDrinkByGlass(selectedGlass));
     }
-    dispatch(setSelectedCategory(selectedCategory));
+    dispatch(setSelectedGlass(selectedGlass));
   };
 
   useEffect(() => {
-    dispatch(getCategories());
-    if (selectedCategory === null) {
-      dispatch(getMealsByCategory("Beef"));
-      dispatch(setSelectedCategory("Beef"));
-    }
-  }, [dispatch]);
+    dispatch(getGlassType());
 
+    dispatch(setSelectedGlass("Highball glass"));
+    dispatch(getDrinkByGlass("Highball glass"));
+  }, [dispatch]);
   return (
     <div>
       <Navbar />
@@ -45,53 +42,44 @@ export default function ByCategories() {
           <span className="text-center uppercase text-sm font-semibold bg-[#EE6352] text-white px-2 py-1 rounded-full ">
             search
           </span>
-          <h1 className="text-3xl font-bold uppercase">Categories</h1>
+          <h1 className="text-3xl font-bold uppercase">Glass Type</h1>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-5">
           <div className="flex flex-row flex-nowrap overflow-x-auto overflow-y-hidden gap-6 py-2">
-            {category &&
-              category.map((category) => (
+            {glasses &&
+              glasses.map((glass) => (
                 <div
-                  key={category.strCategory}
-                  onClick={() => results(category?.strCategory)}
-                  className={`flex flex-col flex-shrink-0 items-center text-center cursor-pointer transition-all duration-300 hover:scale-105 ${
-                    selectedCategory === category?.strCategory
+                  key={glass.strGlass}
+                  onClick={() => results(glass?.strGlass)}
+                  className={`text-center text-nowrap cursor-pointer transition-all duration-300 hover:scale-105 ${
+                    selectedGlass === glass?.strGlass
                       ? ""
                       : "hover:text-[#F29C33]"
                   }`}
                 >
-                  <img
-                    src={category?.strCategoryThumb}
-                    className={`w-32 rounded-full p-2 border ${
-                      selectedCategory === category?.strCategory
-                        ? "bg-[#9FDC26] border-black"
-                        : "bg-transparent border-transparent"
-                    }`}
-                  />
-
                   <p
-                    className={`mt-2 font-medium border px-2 py-0.5 rounded-full ${
-                      selectedCategory === category?.strCategory
+                    className={`font-medium border px-2 py-0.5 rounded-full ${
+                      selectedGlass === glass?.strGlass
                         ? "bg-[#9FDC26] border-black hover:text-white"
                         : "bg-transparent border-transparent"
                     }`}
                   >
-                    {category?.strCategory}
+                    {glass?.strGlass}
                   </p>
                 </div>
               ))}
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-5">
           <div>
             <h3 className="font-medium text-xl">
-              Showing {categoryResult?.length} results for{" "}
+              Showing {glassResult?.length} results for{" "}
               <span className="text-[#F29C33] font-semibold">
-                {selectedCategory}
+                {selectedGlass}
               </span>{" "}
-              category
+              glasses
             </h3>
           </div>
 
@@ -124,9 +112,9 @@ export default function ByCategories() {
                 ))
               ) : (
                 <>
-                  {categoryResult &&
-                    categoryResult?.map((meal) => (
-                      <CardMeals key={meal.idMeal} meal={meal} />
+                  {glassResult &&
+                    glassResult?.map((drink) => (
+                      <CardDrinks key={drink.idDrink} drinks={drink} />
                     ))}
                 </>
               )}

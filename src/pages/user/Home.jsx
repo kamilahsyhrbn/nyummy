@@ -19,6 +19,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Footer from "../../assets/components/navigations/Footer";
 import { useNavigate } from "react-router-dom";
 import { setSelectedCategory } from "../../redux/reducers/mealReducers";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Home() {
   const { randomMeal, category } = useSelector((state) => state.meal);
@@ -94,7 +96,7 @@ export default function Home() {
   };
 
   return (
-    <div className="scroll-smooth">
+    <div>
       <Navbar />
 
       <div>
@@ -137,15 +139,64 @@ export default function Home() {
           Meal Recipe Recommendations
         </h1>
 
-        <Slider {...settings}>
-          {randomMeal?.map((meal) => {
-            return (
-              <div key={meal?.idMeal} className="mt-5">
-                <CardMeals meal={meal} />
-              </div>
-            );
-          })}
-        </Slider>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
+          {randomMeal?.length === 0
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-[#FFFBF2] rounded-3xl p-3 flex flex-col justify-center mx-5 overflow-hidden"
+                >
+                  <Skeleton
+                    height={250}
+                    style={{
+                      borderRadius: "24px",
+                    }}
+                  />
+                  <Skeleton height={30} width={250} className="mt-4" />
+                  <div className="flex gap-3">
+                    <Skeleton
+                      height={30}
+                      width={100}
+                      className="mt-4"
+                      style={{
+                        borderRadius: "24px",
+                      }}
+                    />
+                    <Skeleton
+                      height={30}
+                      width={100}
+                      className="mt-4"
+                      style={{
+                        borderRadius: "24px",
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <Skeleton
+                      height={40}
+                      width={120}
+                      className="mt-4"
+                      style={{
+                        borderRadius: "24px",
+                      }}
+                    />
+                  </div>
+                </div>
+              ))
+            : null}
+        </div>
+
+        {randomMeal?.length !== 0 && (
+          <Slider {...settings}>
+            {randomMeal?.map((meal) => {
+              return (
+                <div key={meal?.idMeal}>
+                  <CardMeals meal={meal} />
+                </div>
+              );
+            })}
+          </Slider>
+        )}
       </div>
 
       {/* CATEGORIES SECTION */}
@@ -193,6 +244,53 @@ export default function Home() {
         <h1 className="md:text-3xl text-center md:text-start text-lg uppercase font-bold tracking-wider">
           Drinks Recommendations
         </h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
+          {randomCocktail?.length === 0
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-[#FFFBF2] rounded-3xl p-3 flex flex-col justify-center mx-5 overflow-hidden"
+                >
+                  <Skeleton
+                    height={250}
+                    style={{
+                      borderRadius: "24px",
+                    }}
+                  />
+                  <Skeleton height={30} width={250} className="mt-4" />
+                  <div className="flex gap-3">
+                    <Skeleton
+                      height={30}
+                      width={100}
+                      className="mt-4"
+                      style={{
+                        borderRadius: "24px",
+                      }}
+                    />
+                    <Skeleton
+                      height={30}
+                      width={100}
+                      className="mt-4"
+                      style={{
+                        borderRadius: "24px",
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <Skeleton
+                      height={40}
+                      width={120}
+                      className="mt-4"
+                      style={{
+                        borderRadius: "24px",
+                      }}
+                    />
+                  </div>
+                </div>
+              ))
+            : null}
+        </div>
 
         <Slider {...settings}>
           {randomCocktail?.map((drinks) => {

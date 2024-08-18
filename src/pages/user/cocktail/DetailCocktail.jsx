@@ -1,26 +1,28 @@
 import React, { useEffect } from "react";
 import BtnScrollTop from "../../../assets/components/BtnScrollTop";
 import Navbar from "../../../assets/components/navigations/Navbar";
+import Footer from "../../../assets/components/navigations/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../../assets/components/navigations/Footer";
 import Loader from "../../../assets/components/Loader";
 
-export default function DetailMeal() {
+export default function DetailCocktail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const meal = useSelector((state) => state.meal.mealDetail);
-  const { isLoading } = useSelector((state) => state.meal);
+
+  const drink = useSelector((state) => state.cocktail.cocktailDetail);
+  const { isLoading } = useSelector((state) => state.cocktail);
+  console.log("drink", drink);
 
   const tags =
-    meal && meal[0]?.strTags
-      ? meal[0]?.strTags
+    drink && drink[0]?.strTags
+      ? drink[0]?.strTags
           .split(",")
           .filter((tag) => tag.trim() !== "")
           .map((tag, i) => (
             <span
               key={i}
-              className="text-[#F29C33] border-2 border-[#F29C33] font-semibold px-3 py-1 rounded-full mr-2"
+              className="text-[#F29C33] border-2 border-[#F29C33] font-semibold px-3 py-1 rounded-full"
             >
               #{tag}
             </span>
@@ -28,8 +30,8 @@ export default function DetailMeal() {
       : [];
 
   const instructions =
-    meal && meal[0]?.strInstructions
-      ? meal[0]?.strInstructions
+    drink && drink[0]?.strInstructions
+      ? drink[0]?.strInstructions
           .split(".")
           .filter((instruction) => instruction.trim() !== "")
           .map((instruction, i) => {
@@ -48,10 +50,10 @@ export default function DetailMeal() {
       : [];
 
   const ingredientElements = [];
-  if (meal && !isLoading) {
+  if (drink && !isLoading) {
     for (let i = 1; i <= 20; i++) {
-      const measure = meal[0][`strMeasure${i}`];
-      const ingredient = meal[0][`strIngredient${i}`];
+      const measure = drink[0][`strMeasure${i}`];
+      const ingredient = drink[0][`strIngredient${i}`];
 
       if (measure && ingredient) {
         ingredientElements.push(
@@ -78,14 +80,14 @@ export default function DetailMeal() {
                 Recipe
               </span>
               <h1 className="md:text-4xl text-center text-lg uppercase font-bold tracking-wider">
-                {meal[0]?.strMeal}
+                {drink[0]?.strDrink ? drink[0]?.strDrink : "Cocktail"}
               </h1>
               <div className="flex flex-col md:flex-row px-3 mt-2 gap-2">
                 <span className="bg-[#9FDC26] border border-black px-3 py-1 rounded-full">
-                  📍 {meal[0]?.strArea}
+                  🥂 {drink[0]?.strGlass}
                 </span>
                 <span className="bg-[#9FDC26] border border-black px-3 py-1 rounded-full">
-                  🍴 {meal[0]?.strCategory}
+                  🍸 {drink[0]?.strCategory}
                 </span>
               </div>
             </div>
@@ -93,66 +95,41 @@ export default function DetailMeal() {
             <div className="flex flex-col md:flex-row gap-6 my-8 justify-center items-center md:items-start">
               <div className="md:w-5/12 h-full">
                 <img
-                  src={meal[0]?.strMealThumb}
-                  alt={meal[0]?.strMeal}
-                  className="w-full h-80 object-cover rounded-3xl"
+                  src={drink[0]?.strDrinkThumb}
+                  alt={drink[0]?.strDrink}
+                  className="w-full h-full object-cover rounded-3xl"
                 />
               </div>
               <div className="md:w-5/12 ">
-                <div className="mt-5">{tags && tags}</div>
-                {meal[0]?.strSource && (
-                  <div className={`${tags ? "my-6" : "my-5"} mx-8 md:mx-0`}>
-                    <span className="text-[#F29C33] font-medium">
-                      Source :{" "}
-                    </span>
-                    <a
-                      href={meal[0]?.strSource}
-                      target="_blank"
-                      className="hover:text-[#F29C33] hover:underline"
-                    >
-                      Click Here!
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-5">
-              <div className="md:w-10/12">
-                <h1 className="text-2xl font-bold uppercase text-center md:text-start">
-                  Instructions
-                </h1>
-                {instructions && instructions}
-              </div>
-              <div className="md:w-10/12">
-                <h1 className="text-2xl font-bold uppercase mb-3 text-center">
-                  Ingredients
-                </h1>
-                <div className="bg-[#FFFBF2] md:w-7/12 rounded-3xl p-3 flex flex-col h-max mx-auto">
-                  <div>{ingredientElements}</div>
+                <div className="mt-5 flex flex-wrap gap-2">{tags && tags}</div>
+                <div
+                  className={`${
+                    drink[0]?.strTags !== null ? "my-6" : "my-0"
+                  } mx-8 md:mx-0`}
+                >
+                  <span className="text-[#F29C33] font-medium">
+                    Alcoholic :{" "}
+                  </span>
+                  {drink[0]?.strAlcoholic}
                 </div>
-                <div className="my-6">
-                  <h1 className="text-2xl font-bold uppercase mb-3 text-center">
-                    Video
+                <div className="mt-5 mb-8">
+                  <h1 className="text-2xl font-bold uppercase mb-3">
+                    Ingredients
                   </h1>
-                  {meal[0]?.strYoutube ? (
-                    <iframe
-                      className="w-full h-96 rounded-3xl"
-                      src={`https://www.youtube.com/embed/${meal[0]?.strYoutube.slice(
-                        -11
-                      )}`}
-                      title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    ></iframe>
-                  ) : (
-                    <p className="text-center">No video available </p>
-                  )}
+                  <div className="bg-[#FFFBF2] md:w-7/12 rounded-3xl p-3 flex flex-col h-max">
+                    <div>{ingredientElements}</div>
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold uppercase text-center md:text-start">
+                    Instructions
+                  </h1>
+                  {instructions && instructions}
                 </div>
               </div>
             </div>
           </div>
+
           <BtnScrollTop />
           <Footer />
         </>
