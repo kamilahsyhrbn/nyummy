@@ -33,7 +33,7 @@ export default function ByName() {
     <div>
       <Navbar />
 
-      <div className="border border-[#262522]/25 rounded-3xl mt-24 mb-16 p-6 mx-5">
+      <div className="border border-[#262522]/25 rounded-3xl mt-24 mb-16 p-6 mx-5 min-h-svh">
         <div className="flex flex-col items-center gap-1">
           <span className="text-center uppercase text-sm font-semibold bg-[#EE6352] text-white px-2 py-1 rounded-full ">
             search
@@ -99,7 +99,7 @@ export default function ByName() {
           {/* search result */}
           <div className="my-6">
             {Array.isArray(searchResults) &&
-              searchResults.length > 0 &&
+              searchResults?.length > 0 &&
               searchKeyword && (
                 <h3 className="font-medium text-xl">
                   Showing {searchResults.length} results for{" "}
@@ -165,7 +165,7 @@ export default function ByName() {
                 ))
               ) : (
                 <>
-                  {searchResults ? (
+                  {searchResults && Array.isArray(searchResults) ? (
                     searchResults?.map((drink) => (
                       <CardDrinks key={drink.idDrink} drinks={drink} />
                     ))

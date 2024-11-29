@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Logo from "../../images/Logo.png";
-import User from "../../images/User.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { MdRestaurantMenu } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,10 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const showMenuHandler = () => {
+    setShowMenu(!showMenu);
+  };
 
   return (
     <div
@@ -41,7 +46,7 @@ export default function Navbar() {
           <img src={Logo} alt="Nyummy's Logo" className="w-16 h-16" />
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4">
           <Link
             to="/"
             className={`${
@@ -83,8 +88,8 @@ export default function Navbar() {
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/search-meal"
+                      <Link
+                        to="/search-meal"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -94,13 +99,13 @@ export default function Navbar() {
                       `}
                       >
                         Search by name
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/meal-area"
+                      <Link
+                        to="/meal-area"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -110,13 +115,13 @@ export default function Navbar() {
                       `}
                       >
                         Search by area
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/meal-categories"
+                      <Link
+                        to="/meal-categories"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -126,7 +131,7 @@ export default function Navbar() {
                       `}
                       >
                         Search by category
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                 </div>
@@ -165,8 +170,8 @@ export default function Navbar() {
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/search-drink"
+                      <Link
+                        to="/search-drink"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -176,13 +181,13 @@ export default function Navbar() {
                       `}
                       >
                         Search by name
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/drink-categories"
+                      <Link
+                        to="/drink-categories"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -192,13 +197,13 @@ export default function Navbar() {
                       `}
                       >
                         Search by category
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/drink-glasses"
+                      <Link
+                        to="/drink-glasses"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -208,13 +213,13 @@ export default function Navbar() {
                       `}
                       >
                         Search by glasses
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
-                      <a
-                        href="/drink-filter"
+                      <Link
+                        to="/drink-filter"
                         className={`${
                           active
                             ? "bg-[#F0EBE1] text-gray-900"
@@ -224,13 +229,160 @@ export default function Navbar() {
                       `}
                       >
                         Search by alcoholic
-                      </a>
+                      </Link>
                     )}
                   </Menu.Item>
                 </div>
               </Menu.Items>
             </Transition>
           </Menu>
+        </div>
+
+        {/* MOBILE MENU */}
+        <div className="md:hidden">
+          {/* MOBILE AND TABLET MENU */}
+          <div
+            onClick={showMenuHandler}
+            className="transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
+          >
+            <MdRestaurantMenu className="text-3xl hover:text-[#F29C33]" />
+          </div>
+
+          <div>
+            <div
+              className={`bg-[#FCF8F0] w-7/12 h-screen fixed top-0 right-0 z-10 transition-all duration-300 text-black ${
+                showMenu ? "" : "translate-x-full"
+              }`}
+            >
+              <div className="flex flex-col items-center h-full p-5">
+                <Link to="/home">
+                  <h2 className="text-2xl font-bold text-center title">
+                    Nyummy
+                  </h2>
+                </Link>
+
+                <div className="flex flex-col space-y-4 mt-10 w-full">
+                  <Link to="/" className="hover:text-[#F29C33]">
+                    Home
+                  </Link>
+                  <details className="group [&_summary::-webkit-details-marker]:hidden">
+                    <summary className="flex cursor-pointer items-center justify-between hover:text-[#F29C33]">
+                      <span> Search Meals </span>
+
+                      <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="size-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </summary>
+                    <ul className="mt-2 space-y-1 px-4">
+                      <li>
+                        <a
+                          href="/search-meal"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by name
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="/meal-area"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by area
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="/meal-categories"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by category
+                        </a>
+                      </li>
+                    </ul>
+                  </details>
+                  <details className="group [&_summary::-webkit-details-marker]:hidden">
+                    <summary className="flex cursor-pointer items-center justify-between hover:text-[#F29C33]">
+                      <span> Search Cocktails </span>
+
+                      <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="size-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </summary>
+
+                    <ul className="mt-2 space-y-1 px-4">
+                      <li>
+                        <a
+                          href="/search-drink"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by name
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="/drink-categories"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by category
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="/drink-glasses"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by glasses
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="/drink-filter"
+                          className="block rounded-lg px-4 py-2 text-sm font-medium hover:text-[#F29C33]"
+                        >
+                          Search by alcoholic
+                        </a>
+                      </li>
+                    </ul>
+                  </details>
+                </div>
+                <div className="absolute top-5 right-5">
+                  <button
+                    onClick={showMenuHandler}
+                    className="bg-transparent hover:bg-[#F29C33] rounded-full p-2 transition-all duration-300"
+                  >
+                    <IoMdClose className="text-2xl" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

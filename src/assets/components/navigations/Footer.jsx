@@ -5,18 +5,18 @@ import { useNavigate } from "react-router-dom";
 export default function Footer() {
   const navigate = useNavigate();
   return (
-    <div className="bg-[#262522] text-white px-20 py-5">
-      <div className="flex justify-between mb-5">
+    <div className="bg-[#262522] text-white p-5 md:px-20">
+      <div className="flex flex-col md:flex-row justify-between mb-5">
         <div
-          className="flex flex-col md:flex-row items-center cursor-pointer"
+          className="flex items-center cursor-pointer"
           onClick={() => navigate("/")}
         >
           <img src={Logo} alt="" className="w-28 h-28" />
           <h2 className="title text-3xl font-bold uppercase">Nyummy</h2>
         </div>
-        <div className="flex flex-col md:flex-row  gap-10">
+        <div className="flex flex-col md:flex-row gap-10">
           <div>
-            <h2 className="text-xl font-medium text-center mb-3">Meal</h2>
+            <h2 className="text-xl font-medium md:text-center mb-3">Meal</h2>
             <ul className="flex flex-col gap-2">
               <li className="text-sm">
                 <a
@@ -45,7 +45,9 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h2 className="text-xl font-medium text-center mb-3">Cocktail</h2>
+            <h2 className="text-xl font-medium md:text-center mb-3">
+              Cocktail
+            </h2>
             <ul className="flex flex-col gap-2">
               <li className="text-sm">
                 <a

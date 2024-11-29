@@ -52,7 +52,7 @@ export default function Home() {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           initialSlide: 2,
@@ -141,7 +141,14 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
           {randomMeal?.length === 0
-            ? Array.from({ length: 3 }).map((_, index) => (
+            ? Array.from({
+                length:
+                  window.innerWidth < 768
+                    ? 1
+                    : window.innerWidth < 1024
+                    ? 2
+                    : 3,
+              }).map((_, index) => (
                 <div
                   key={index}
                   className="bg-[#FFFBF2] rounded-3xl p-3 flex flex-col justify-center mx-5 overflow-hidden"

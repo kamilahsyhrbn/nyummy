@@ -11,6 +11,7 @@
 
 body {
   background-color: #f0ebe1;
+  overscroll-behavior: none;
 }
 
 .title {

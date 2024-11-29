@@ -35,7 +35,7 @@ export default function DetailMeal() {
           .map((instruction, i) => {
             const index = i + 1;
             return (
-              <div className="flex items-start gap-2">
+              <div className="flex gap-1 items-start">
                 <span className="bg-[#F29C33] px-2 text-center text-white rounded-full mt-2">
                   {index}
                 </span>
@@ -72,7 +72,7 @@ export default function DetailMeal() {
         <>
           <Navbar />
 
-          <div className="border border-[#262522]/25 rounded-3xl mt-24 mb-16 mx-10 p-6 overflow-x-hidden">
+          <div className="border border-[#262522]/25 rounded-3xl mt-24 mb-16 mx-5 md:mx-10 p-6 overflow-x-hidden">
             <div className="flex flex-col items-center gap-1">
               <span className="text-center uppercase text-sm font-semibold bg-[#EE6352] text-white px-2 py-1 rounded-full ">
                 Recipe
@@ -80,11 +80,11 @@ export default function DetailMeal() {
               <h1 className="md:text-4xl text-center text-lg uppercase font-bold tracking-wider">
                 {meal[0]?.strMeal}
               </h1>
-              <div className="flex flex-col md:flex-row px-3 mt-2 gap-2">
-                <span className="bg-[#9FDC26] border border-black px-3 py-1 rounded-full">
+              <div className="flex flex-col md:flex-row items-center px-3 mt-2 gap-2">
+                <span className="bg-[#9FDC26] border border-black px-3 py-1 rounded-full text-center w-max">
                   📍 {meal[0]?.strArea}
                 </span>
-                <span className="bg-[#9FDC26] border border-black px-3 py-1 rounded-full">
+                <span className="bg-[#9FDC26] border border-black px-3 py-1 rounded-full text-center w-max">
                   🍴 {meal[0]?.strCategory}
                 </span>
               </div>
@@ -99,9 +99,9 @@ export default function DetailMeal() {
                 />
               </div>
               <div className="md:w-5/12 ">
-                <div className="mt-5">{tags && tags}</div>
+                <div className="mt-5 flex flex-wrap gap-2">{tags && tags}</div>
                 {meal[0]?.strSource && (
-                  <div className={`${tags ? "my-6" : "my-5"} mx-8 md:mx-0`}>
+                  <div className={`${tags ? "my-6" : "my-5"}`}>
                     <span className="text-[#F29C33] font-medium">
                       Source :{" "}
                     </span>

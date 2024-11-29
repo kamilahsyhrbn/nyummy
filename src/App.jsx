@@ -10,6 +10,7 @@ import SearchByName from "./pages/user/cocktail/search/ByName";
 import SearchByCategories from "./pages/user/cocktail/search/ByCategories";
 import SearchByGlasses from "./pages/user/cocktail/search/ByGlasses";
 import SearchByFilter from "./pages/user/cocktail/search/ByFilter";
+import NotFound from "./pages/extra/NotFound";
 
 export default function App() {
   return (
@@ -31,7 +32,7 @@ export default function App() {
         <Route path="/drink-filter" element={<SearchByFilter />} />
 
         {/* 404 */}
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
