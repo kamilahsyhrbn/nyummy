@@ -104,10 +104,8 @@ export default function Home() {
         <div
           style={{
             backgroundImage: `linear-gradient(rgba(33,33,33,0.522), rgba(33,33,33,0.522)), url(${background})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
           }}
-          className="w-full h-full"
+          className="w-full h-full bg-left md:bg-center bg-no-repeat bg-cover"
         >
           <div className="flex flex-col justify-center items-center pt-32 pb-12 mx-5 md:mx-0">
             <h1 className="title text-5xl uppercase font-bold text-white tracking-wider text-center">
